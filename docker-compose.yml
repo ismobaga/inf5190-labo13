@@ -1,0 +1,28 @@
+version: '3'
+
+services: 
+  db:
+    image: mysql:latest
+    environment: 
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: inf5190
+
+    volumes: 
+      - ./db:/docker-entrypoint-initdb.d
+
+  tomcat:
+    image: bitnami/tomcat
+    ports: 
+      - "7777:8080"
+    environment: 
+      TOMCAT_ALLOW_REMOTE_MANAGEMENT: 1
+      TOMCAT_USERNAME: tomcat
+      TOMCAT_PASSWORD: tomcat
+      
+    links: 
+      - db
+
+
+
